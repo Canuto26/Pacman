@@ -21,15 +21,15 @@ import util
 
 class SearchProblem:
     """
-    This class outlines the structure of a search problem, but doesn't implement
-    any of the methods (in object-oriented terminology: an abstract class).
+    Esta clase describe la estructura de un problema de búsqueda, pero no implementa
+    cualquiera de los métodos (en terminología orientada a objetos: una clase abstracta).
 
-    You do not need to change anything in this class, ever.
+    No necesitas cambiar nada en esta clase, nunca.
     """
 
     def getStartState(self):
         """
-        Returns the start state for the search problem.
+        Devuelve el estado inicial del problema de búsqueda.
         """
         util.raiseNotDefined()
 
@@ -37,7 +37,7 @@ class SearchProblem:
         """
           state: Search state
 
-        Returns True if and only if the state is a valid goal state.
+        Devuelve True si y solo si el estado es un estado de objetivo válido.
         """
         util.raiseNotDefined()
 
@@ -45,10 +45,10 @@ class SearchProblem:
         """
           state: Search state
 
-        For a given state, this should return a list of triples, (successor,
-        action, stepCost), where 'successor' is a successor to the current
-        state, 'action' is the action required to get there, and 'stepCost' is
-        the incremental cost of expanding to that successor.
+        Para un estado dado, esto debe devolver una lista de triples, (sucesor,
+        acción, stepCost), donde 'sucesor' es un sucesor de la actual
+        estado, 'acción' es la acción necesaria para llegar allí, y 'stepCost' es
+        el coste incremental de la ampliación a ese sucesor.
         """
         util.raiseNotDefined()
 
@@ -56,16 +56,16 @@ class SearchProblem:
         """
          actions: A list of actions to take
 
-        This method returns the total cost of a particular sequence of actions.
-        The sequence must be composed of legal moves.
+        Este método devuelve el coste total de una secuencia particular de acciones.
+        La secuencia debe estar compuesta por movimientos legales.
         """
         util.raiseNotDefined()
 
 
 def tinyMazeSearch(problem):
     """
-    Returns a sequence of moves that solves tinyMaze.  For any other maze, the
-    sequence of moves will be incorrect, so only use this for tinyMaze.
+    Devuelve una secuencia de movimientos que resuelve tinyMaze.  Para cualquier otro laberinto, el
+    secuencia de movimientos será incorrecta, por lo que solo se utiliza para tinyMaze.
     """
     from game import Directions
     s = Directions.SOUTH
@@ -74,13 +74,13 @@ def tinyMazeSearch(problem):
 
 def depthFirstSearch(problem):
     """
-    Search the deepest nodes in the search tree first.
+    Buscar los nodos más profundos en el árbol de búsqueda primero.
 
-    Your search algorithm needs to return a list of actions that reaches the
-    goal. Make sure to implement a graph search algorithm.
+    Su algoritmo de búsqueda necesita devolver una lista de acciones que llega a la
+    objetivo. Asegúrese de implementar un algoritmo de búsqueda de grafos.
 
-    To get started, you might want to try some of these simple commands to
-    understand the search problem that is being passed in:
+    Para empezar, puede que quieras probar algunos de estos comandos simples
+    comprender el problema de búsqueda que se pasa en:
 
     print "Start:", problem.getStartState()
     print "Is the start a goal?", problem.isGoalState(problem.getStartState())
@@ -98,20 +98,20 @@ def depthFirstSearch(problem):
 
     while not stack.isEmpty():
         
-        # arrive at state
+        # llegar al estado
         curr_state, _, action = stack.pop()
         traveled.append(curr_state)
         
-        # record action that get to that state
+        # registrar las acciones que llegan a ese estado
         if action != 'START':
             trace.push(action)
             step_counter += 1
 
-        # check if state is goal
+        # comprobar si el estado es la meta
         if problem.isGoalState(curr_state):
             return trace.list
 
-        # get possible next states
+        # obtener posibles estados siguientes
         valid_successors = 0
         successors = problem.getSuccessors(curr_state)
 
@@ -120,12 +120,12 @@ def depthFirstSearch(problem):
             next_state = successor[0]
             next_action = successor[1]
 
-            # avoid traveling back to previous states
+            # evitar viajar de vuelta a estados anteriores
             if next_state not in traveled:
                 valid_successors += 1
                 stack.push((next_state, step_counter, next_action))
 
-        # dead end, step backwards
+        # callejón sin salida, paso atrás
         if valid_successors == 0:
             while step_counter != stack.list[-1][1]: # back until next awaiting state
                 step_counter -= 1
@@ -133,7 +133,7 @@ def depthFirstSearch(problem):
     
 
 def breadthFirstSearch(problem):
-    """Search the shallowest nodes in the search tree first."""
+    """Buscar los nodos más bajos en el árbol de búsqueda primero."""
     
     queue = util.Queue()
     trace = {}
@@ -145,14 +145,14 @@ def breadthFirstSearch(problem):
 
     while not queue.isEmpty():
         
-        # arrive at state
+        # llegar al estado
         curr_state = queue.pop()
 
-        # check if state is goal
+        # comprobar si el estado es la meta
         if problem.isGoalState(curr_state):
             break
 
-        # get possible next states
+        # obtener posibles estados siguientes
         successors = problem.getSuccessors(curr_state)
         
         for successor in successors:
@@ -180,7 +180,7 @@ def breadthFirstSearch(problem):
 
 
 def uniformCostSearch(problem):
-    """Search the node of least total cost first."""
+    """Buscar primero el nodo de menor coste total."""
     
     priority_queue = util.PriorityQueue()
     trace = {}
@@ -195,14 +195,14 @@ def uniformCostSearch(problem):
 
     while not priority_queue.isEmpty():
         
-        # arrive at state
+        # llegar al estado
         curr_state = priority_queue.pop()
 
-        # check if state is goal
+        # comprobar si el estado es la meta
         if problem.isGoalState(curr_state):
             break
 
-        # get possible next states
+        # obtener posibles estados siguientes
         successors = problem.getSuccessors(curr_state)
         
         for successor in successors:
@@ -240,14 +240,14 @@ def uniformCostSearch(problem):
 
 def nullHeuristic(state, problem=None):
     """
-    A heuristic function estimates the cost from the current state to the nearest
-    goal in the provided SearchProblem.  This heuristic is trivial.
+    Una función heurística estima el coste del estado actual al más cercano
+    objetivo en el problema de búsqueda proporcionado.  Esta heurística es trivial.
     """
     return 0
 
 
 def aStarSearch(problem, heuristic=nullHeuristic):
-    """Search the node that has the lowest combined cost and heuristic first."""
+    """Buscar el nodo que tiene el menor costo combinado y heurística primero."""
     start_state = problem.getStartState()
 
     g = {}
